@@ -197,8 +197,11 @@ if __name__ == "__main__":
 
     cal = Calendar("./cal.ics")
     
-    week_start = arrow.get(datetime(2021, 10, 11), 'Europe/London')
-    week_end   = arrow.get(datetime(2021, 10, 15), 'Europe/London')
+    from datetime import datetime, timedelta
+
+    week       = arrow.utcnow().span('week')
+    week_start = week[0]
+    week_end   = week[1]
 
     cal.plot_category_hours(
         week_start,
