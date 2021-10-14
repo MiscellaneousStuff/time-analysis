@@ -4,7 +4,9 @@ import arrow
 import pytz
 import re
 import regex
+import urllib.request
 
+from dotenv import dotenv_values
 import matplotlib.pyplot as plt
 from datetime import datetime, date, timezone
 from icalendar import Calendar as iCalendar
@@ -188,15 +190,15 @@ class Calendar(object):
         plt.show()
 
 if __name__ == "__main__":
-    cal = Calendar("./cal.ics")
-    # this week
-    week_start = arrow.get(datetime(2021, 10, 4), 'Europe/London')
-    week_end   = arrow.get(datetime(2021, 10, 11), 'Europe/London')
+    config = dotenv_values(".env")
+    ical_secret_url = config["ICAL_SECRET"]
 
-    """
-    week_start = arrow.get(datetime(2021, 10, 7), 'Europe/London')
-    week_end   = arrow.get(datetime(2021, 10, 8), 'Europe/London')
-    """
+    urllib.request.urlretrieve(ical_secret_url, './cal.ics')
+
+    cal = Calendar("./cal.ics")
+    
+    week_start = arrow.get(datetime(2021, 10, 11), 'Europe/London')
+    week_end   = arrow.get(datetime(2021, 10, 15), 'Europe/London')
 
     cal.plot_category_hours(
         week_start,
