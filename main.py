@@ -69,6 +69,8 @@ def process_ics(ics_txt):
             # Categories
             mixed = False
             desc = False
+            if not title:
+                title = ""
             tmp_title = title.lower().strip()
             if "mixed:" in tmp_title:
                 mixed = True
@@ -109,6 +111,7 @@ def process_ics(ics_txt):
             }
             events.append(event)
 
+    print("EVENTS:", events)
     return events
 
 class Calendar(object):
