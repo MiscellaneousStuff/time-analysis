@@ -111,7 +111,7 @@ def process_ics(ics_txt):
             }
             events.append(event)
 
-    print("EVENTS:", events)
+    # print("EVENTS:", events)
     return events
 
 class Calendar(object):
@@ -202,12 +202,21 @@ if __name__ == "__main__":
     
     from datetime import datetime, timedelta
 
-    week       = arrow.utcnow().span('week')
+    start      = arrow.utcnow()
+    # start      = start.shift(days=-7)
+    week       = start.span('week')
     week_start = week[0]
     week_end   = week[1]
 
     cal.plot_category_hours(
         week_start,
         week_end,
-        cat_depth=0,
+        cat_depth=1,
         ignore_cats=[])
+    
+    # events = cal.get_events_between(week_start, week_end)
+    # events = [ev
+    #           for ev in events
+    #           if "Pyrocloud" in ev["title"]]
+    # for ev in events:
+    #     print(ev)
