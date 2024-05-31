@@ -191,28 +191,49 @@ class Calendar(object):
         
         # Show plot
         plt.show()
-
+        
 if __name__ == "__main__":
     config = dotenv_values(".env")
     ical_secret_url = config["ICAL_SECRET"]
 
-    urllib.request.urlretrieve(ical_secret_url, './cal.ics')
+    # urllib.request.urlretrieve(ical_secret_url, './cal.ics')
 
     cal = Calendar("./cal.ics")
     
-    from datetime import datetime, timedelta
+    # from datetime import datetime, timedelta
 
+    d = 7
     start      = arrow.utcnow()
-    # start      = start.shift(days=-7)
+    # start      = start.shift(days=-d*20)
     week       = start.span('week')
     week_start = week[0]
-    week_end   = week[1]
+    week_end   = week[1].shift(days=0)
+
+    print(week_start, week_end)
+
+    print("time span:", week_start, week_end)
 
     cal.plot_category_hours(
         week_start,
         week_end,
-        cat_depth=1,
+        cat_depth=0,
         ignore_cats=[])
+
+    # for d in [0]: # range(0, 7+1):
+    #     start      = arrow.utcnow()
+    #     start      = start.shift(days=-d*7)
+    #     week       = start.span('week')
+    #     week_start = week[0]
+    #     # week_end   = week[1].shift(days=-30)
+    #     week_end   = week[1]
+
+    #     print("time span:", week_start, week_end)
+
+    #     cal.plot_category_hours(
+    #         week_start,
+    #         week_end,
+    #         cat_depth=0,
+    #         ignore_cats=[])
     
     # events = cal.get_events_between(week_start, week_end)
     # events = [ev
