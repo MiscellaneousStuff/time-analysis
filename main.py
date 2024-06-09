@@ -196,7 +196,7 @@ if __name__ == "__main__":
     config = dotenv_values(".env")
     ical_secret_url = config["ICAL_SECRET"]
 
-    # urllib.request.urlretrieve(ical_secret_url, './cal.ics')
+    urllib.request.urlretrieve(ical_secret_url, './cal.ics')
 
     cal = Calendar("./cal.ics")
     
@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
     d = 7
     start      = arrow.utcnow()
-    # start      = start.shift(days=-d*20)
+    start      = start.shift(days=-d*0)
     week       = start.span('week')
     week_start = week[0]
     week_end   = week[1].shift(days=0)
